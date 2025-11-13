@@ -3,7 +3,7 @@
  * Routing and layout
  */
 
-import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Navigate,useLocation  } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { AuthProvider, useAuth } from "./context/AuthContext";
@@ -12,11 +12,16 @@ import CoursesList from "./components/CoursesList";
 import QuestionsList from "./components/QuestionsList";
 import QuestionDetail from "./components/QuestionDetail";
 import QuestionForm from "./components/QuestionForm";
+//import ProtectedRoute from "./components/ProtectedRoute";
+
 import ProtectedRoute from "./components/ProtectedRoute";
+import HelpWidget from "./components/HelpWidget";
 import Spinner from "./components/Spinner";
 
 const AppRoutes = () => {
   const { loading } = useAuth();
+
+  const location = useLocation();
 
   if (loading) {
     return (
@@ -26,7 +31,10 @@ const AppRoutes = () => {
     );
   }
 
+  const hideHelpWidget = location.pathname === "/";
+
   return (
+    <>
     <Routes>
       {/* Public Route */}
       <Route path="/" element={<Login />} />
@@ -76,6 +84,9 @@ const AppRoutes = () => {
       {/* Catch-all redirect */}
       <Route path="*" element={<Navigate to="/" replace />} />
     </Routes>
+     {/* Global help widget, hidden on login */}
+      {!hideHelpWidget && <HelpWidget />}
+    </>
   );
 };
 
