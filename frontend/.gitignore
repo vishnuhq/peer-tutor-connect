@@ -1,0 +1,94 @@
+# Dependencies
+node_modules/
+package-lock.json
+
+# Production build
+dist/
+build/
+
+# Local env files
+.env
+.env*.local
+.env.development
+.env.test
+.env.production
+
+# Logs
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+# Editor directories and files
+.vscode/
+.idea/
+.DS_Store
+*.suo
+*.ntvs*
+*.njsproj*
+*.sln
+*.sw?
+*.swp
+*.swo
+*.swn
+*~
+
+# OS files
+Thumbs.db
+Desktop.ini
+._*
+.Spotlight-V100
+.Trashes
+
+# Temporary files
+*.tmp
+.cache/
+.temp/
+*.bak
+*.backup
+
+# Testing
+coverage/
+.nyc_output
+test-results/
+playwright-report/
+
+# Vite
+.vite/
+vite.config.js.timestamp-*
+vite.config.ts.timestamp-*
+
+# Optional npm cache
+.npm
+
+# Optional eslint cache
+.eslintcache
+
+# Yarn
+.yarn/
+.pnp.*
+.yarn/cache
+.yarn/unplugged
+.yarn/build-state.yml
+.yarn/install-state.gz
+
+# Build info
+.next/
+out/
+.nuxt/
+.cache/
+.parcel-cache/
+
+# Storybook
+storybook-static/
+
+# Secret and credential files
+*.key
+*.pem
+*.cert
+*.crt
+credentials.json
+secrets.json
