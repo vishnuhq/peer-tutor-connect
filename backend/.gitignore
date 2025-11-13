@@ -1,0 +1,112 @@
+# Dependencies
+node_modules/
+package-lock.json
+
+# Environment variables - CRITICAL: NEVER COMMIT
+.env
+.env.development
+.env.development.local
+.env.test
+.env.test.local
+.env.production
+.env.production.local
+.env.local
+
+# Logs
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+lerna-debug.log*
+pnpm-debug.log*
+
+# Runtime data
+pids/
+*.pid
+*.seed
+*.pid.lock
+
+# Testing
+coverage/
+*.lcov
+.nyc_output
+*.test.js.snap
+test-results/
+test_output.txt
+
+# Build directories
+dist/
+build/
+build/Release
+
+# Dependency directories
+jspm_packages/
+
+# TypeScript cache
+*.tsbuildinfo
+
+# Optional npm cache directory
+.npm
+
+# Optional eslint cache
+.eslintcache
+
+# Optional REPL history
+.node_repl_history
+
+# Output of npm pack
+*.tgz
+
+# Yarn Integrity file
+.yarn-integrity
+
+# IDEs and editors
+.vscode/
+.idea/
+*.swp
+*.swo
+*.swn
+*~
+*.sublime-project
+*.sublime-workspace
+
+# OS files
+.DS_Store
+.DS_Store?
+._*
+Thumbs.db
+Desktop.ini
+
+# Temporary files
+*.tmp
+.temp/
+.cache/
+*.bak
+*.backup
+
+# Database files
+*.sqlite
+*.sqlite3
+*.db
+*.sql
+*.dump
+
+# Secret and credential files
+*.key
+*.pem
+*.p12
+*.pfx
+*.cert
+*.crt
+credentials.json
+secrets.json
+config.local.js
+
+# MongoDB dumps
+dump/
+*.bson
+
+# Session store (if using file-based sessions)
+sessions/
+*.session

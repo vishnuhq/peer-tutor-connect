@@ -1,0 +1,41 @@
+{
+  "name": "peer-tutor-connect-backend",
+  "version": "1.0.0",
+  "description": "Backend API for Peer-Tutor Connect",
+  "main": "app.js",
+  "type": "module",
+  "directories": {
+    "test": "tests"
+  },
+  "scripts": {
+    "start": "node app.js",
+    "dev": "node --watch app.js",
+    "test": "NODE_OPTIONS=--experimental-vm-modules jest --coverage --runInBand --forceExit",
+    "test:watch": "NODE_OPTIONS=--experimental-vm-modules jest --watch --runInBand",
+    "seed": "node seed/index.js"
+  },
+  "keywords": [
+    "education",
+    "tutoring",
+    "hci"
+  ],
+  "author": "CS 545 Peer-Tutor Connect Team",
+  "engines": {
+    "node": ">=24.11.1"
+  },
+  "dependencies": {
+    "bcrypt": "^6.0.0",
+    "cors": "^2.8.5",
+    "dotenv": "^16.6.1",
+    "express": "^5.1.0",
+    "express-session": "^1.18.2",
+    "express-validator": "^7.3.0",
+    "helmet": "^8.1.0",
+    "mongodb": "^7.0.0"
+  },
+  "devDependencies": {
+    "@types/jest": "^29.5.14",
+    "jest": "^30.2.0",
+    "supertest": "^7.1.4"
+  }
+}

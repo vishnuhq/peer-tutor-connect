@@ -1,0 +1,200 @@
+/**
+ * Integration Tests for Courses Routes
+ * TDD approach: Tests written BEFORE implementation
+ */
+
+import { jest } from '@jest/globals';
+import request from 'supertest';
+import bcrypt from 'bcrypt';
+import { ObjectId } from 'mongodb';
+import { connectToDb, closeConnection, getDb } from '../../database_config/index.js';
+import app from '../../app.js';
+
+describe('Courses Routes', () => {
+  let db;
+  let testStudent;
+  let testCourses;
+  let authCookie;
+
+  beforeAll(async () => {
+    process.env.NODE_ENV = 'test';
+    process.env.DB_NAME = 'peer-tutor-connect-test';
+    db = await connectToDb();
+  });
+
+  afterAll(async () => {
+    await db.collection('students').deleteMany({});
+    await db.collection('courses').deleteMany({});
+    await closeConnection();
+  });
+
+  beforeEach(async () => {
+    // Clear collections
+    await db.collection('students').deleteMany({});
+    await db.collection('courses').deleteMany({});
+
+    // Create test courses
+    const coursesResult = await db.collection('courses').insertMany([
+      {
+        courseCode: 'CS545',
+        courseName: 'Human Computer Interaction',
+        section: 'WS',
+        department: 'Computer Science',
+        instructorName: 'Dr. Gregg Vesonder',
+        instructorEmail: 'gvesonde@stevens.edu',
+        term: 'Fall 2025',
+        enrolledStudents: [],
+        createdAt: new Date(),
+      },
+      {
+        courseCode: 'CS590',
+        courseName: 'Algorithms',
+        section: 'WS',
+        department: 'Computer Science',
+        instructorName: 'Dr. William Hendrix',
+        instructorEmail: 'whendrix@stevens.edu',
+        term: 'Fall 2025',
+        enrolledStudents: [],
+        createdAt: new Date(),
+      },
+      {
+        courseCode: 'CS546',
+        courseName: 'Web Programming',
+        section: 'WS',
+        department: 'Computer Science',
+        instructorName: 'Patrick Hill',
+        instructorEmail: 'phill@stevens.edu',
+        term: 'Fall 2025',
+        enrolledStudents: [],
+        createdAt: new Date(),
+      },
+    ]);
+
+    const courseIds = Object.values(coursesResult.insertedIds);
+    testCourses = courseIds;
+
+    // Create test student enrolled in first 2 courses
+    const hashedPassword = await bcrypt.hash('password123', 10);
+    const enrolledCourses = [courseIds[0], courseIds[1]];
+
+    const studentResult = await db.collection('students').insertOne({
+      firstName: 'Test',
+      lastName: 'Student',
+      universityEmail: 'test.student@stevens.edu',
+      hashedPassword,
+      major: 'Computer Science',
+      age: 20,
+      enrolledCourses,
+      createdAt: new Date(),
+      updatedAt: new Date(),
+    });
+
+    testStudent = {
+      _id: studentResult.insertedId,
+      firstName: 'Test',
+      lastName: 'Student',
+      universityEmail: 'test.student@stevens.edu',
+      enrolledCourses,
+    };
+
+    // Update courses with enrolled student
+    for (const courseId of enrolledCourses) {
+      await db.collection('courses').updateOne(
+        { _id: courseId },
+        { $set: { enrolledStudents: [testStudent._id] } }
+      );
+    }
+
+    // Login to get auth cookie
+    const loginResponse = await request(app)
+      .post('/api/auth/login')
+      .send({
+        universityEmail: 'test.student@stevens.edu',
+        password: 'password123',
+      });
+
+    authCookie = loginResponse.headers['set-cookie'];
+  });
+
+  describe('GET /api/courses', () => {
+    it('should return all courses the student is enrolled in', async () => {
+      const response = await request(app)
+        .get('/api/courses')
+        .set('Cookie', authCookie);
+
+      expect(response.status).toBe(200);
+      expect(response.body.success).toBe(true);
+      expect(response.body.courses).toHaveLength(2);
+      expect(response.body.courses[0]).toHaveProperty('courseCode');
+      expect(response.body.courses[0]).toHaveProperty('courseName');
+      expect(response.body.courses[0]).toHaveProperty('instructorName');
+
+      // Should contain CS545 and CS590
+      const courseCodes = response.body.courses.map(c => c.courseCode);
+      expect(courseCodes).toContain('CS545');
+      expect(courseCodes).toContain('CS590');
+      expect(courseCodes).not.toContain('CS546'); // Not enrolled in this
+    });
+
+    it('should return empty array if student not enrolled in any courses', async () => {
+      // Create student with no courses
+      const hashedPassword = await bcrypt.hash('password123', 10);
+      await db.collection('students').insertOne({
+        firstName: 'No',
+        lastName: 'Courses',
+        universityEmail: 'no.courses@stevens.edu',
+        hashedPassword,
+        major: 'Computer Science',
+        age: 20,
+        enrolledCourses: [],
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      });
+
+      // Login as this student
+      const loginResponse = await request(app)
+        .post('/api/auth/login')
+        .send({
+          universityEmail: 'no.courses@stevens.edu',
+          password: 'password123',
+        });
+
+      const cookie = loginResponse.headers['set-cookie'];
+
+      // Get courses
+      const response = await request(app)
+        .get('/api/courses')
+        .set('Cookie', cookie);
+
+      expect(response.status).toBe(200);
+      expect(response.body.success).toBe(true);
+      expect(response.body.courses).toEqual([]);
+    });
+
+    it('should require authentication', async () => {
+      const response = await request(app)
+        .get('/api/courses');
+
+      expect(response.status).toBe(401);
+      expect(response.body.success).toBe(false);
+      expect(response.body.error).toBe('Authentication required. Please log in.');
+    });
+
+    it('should return courses with all required fields', async () => {
+      const response = await request(app)
+        .get('/api/courses')
+        .set('Cookie', authCookie);
+
+      expect(response.status).toBe(200);
+      const course = response.body.courses[0];
+      expect(course).toHaveProperty('_id');
+      expect(course).toHaveProperty('courseCode');
+      expect(course).toHaveProperty('courseName');
+      expect(course).toHaveProperty('section');
+      expect(course).toHaveProperty('department');
+      expect(course).toHaveProperty('instructorName');
+      expect(course).toHaveProperty('instructorEmail');
+      expect(course).toHaveProperty('term');
+    });
+  });
+});
