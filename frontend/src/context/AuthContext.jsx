@@ -3,15 +3,15 @@
  * Global auth state management
  */
 
-import { createContext, useContext, useState, useEffect } from 'react';
-import { authApi } from '../api/api';
+import { createContext, useContext, useState, useEffect } from "react";
+import { authApi } from "../api/api";
 
 const AuthContext = createContext(null);
 
 export const useAuth = () => {
   const context = useContext(AuthContext);
   if (!context) {
-    throw new Error('useAuth must be used within AuthProvider');
+    throw new Error("useAuth must be used within AuthProvider");
   }
   return context;
 };
@@ -32,7 +32,7 @@ export const AuthProvider = ({ children }) => {
         setUser(response.data.student);
       }
     } catch (error) {
-      console.error('Auth check failed:', error);
+      console.error("Auth check failed:", error);
     } finally {
       setLoading(false);
     }
@@ -57,9 +57,5 @@ export const AuthProvider = ({ children }) => {
     isAuthenticated: !!user,
   };
 
-  return (
-    <AuthContext.Provider value={value}>
-      {children}
-    </AuthContext.Provider>
-  );
+  return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 };

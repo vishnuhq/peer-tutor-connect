@@ -3,17 +3,17 @@
  * Routing and layout
  */
 
-import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
-import { ToastContainer } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
-import { AuthProvider, useAuth } from './context/AuthContext';
-import Login from './components/Login';
-import CoursesList from './components/CoursesList';
-import QuestionsList from './components/QuestionsList';
-import QuestionDetail from './components/QuestionDetail';
-import QuestionForm from './components/QuestionForm';
-import ProtectedRoute from './components/ProtectedRoute';
-import Spinner from './components/Spinner';
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import { AuthProvider, useAuth } from "./context/AuthContext";
+import Login from "./components/Login";
+import CoursesList from "./components/CoursesList";
+import QuestionsList from "./components/QuestionsList";
+import QuestionDetail from "./components/QuestionDetail";
+import QuestionForm from "./components/QuestionForm";
+import ProtectedRoute from "./components/ProtectedRoute";
+import Spinner from "./components/Spinner";
 
 const AppRoutes = () => {
   const { loading } = useAuth();

@@ -3,11 +3,11 @@
  * Loading indicator
  */
 
-const Spinner = ({ size = 'md', text = '' }) => {
+const Spinner = ({ size = "md", text = "" }) => {
   const sizeClasses = {
-    sm: 'w-6 h-6',
-    md: 'w-10 h-10',
-    lg: 'w-16 h-16',
+    sm: "w-6 h-6",
+    md: "w-10 h-10",
+    lg: "w-16 h-16",
   };
 
   return (
@@ -17,9 +17,7 @@ const Spinner = ({ size = 'md', text = '' }) => {
         role="status"
         aria-label="Loading"
       ></div>
-      {text && (
-        <p className="text-gray-600 text-sm font-medium">{text}</p>
-      )}
+      {text && <p className="text-gray-600 text-sm font-medium">{text}</p>}
     </div>
   );
 };

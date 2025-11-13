@@ -3,9 +3,9 @@
  * Wrapper that requires authentication
  */
 
-import { Navigate } from 'react-router-dom';
-import { useAuth } from '../context/AuthContext';
-import Spinner from './Spinner';
+import { Navigate } from "react-router-dom";
+import { useAuth } from "../context/AuthContext";
+import Spinner from "./Spinner";
 
 const ProtectedRoute = ({ children }) => {
   const { isAuthenticated, loading } = useAuth();

@@ -7,6 +7,7 @@ The React-based single-page application (SPA) for Peer-Tutor Connect, providing 
 This frontend application handles all client-side interactions for the peer tutoring platform. It communicates with the Express backend via RESTful API calls, manages authentication state using React Context, and provides a seamless user experience across all device sizes (mobile, tablet, desktop).
 
 **Key Responsibilities:**
+
 - User authentication (login/logout) with session persistence
 - Display enrolled courses and course-specific question forums
 - Create, edit, and delete questions and responses
@@ -18,32 +19,39 @@ This frontend application handles all client-side interactions for the peer tuto
 ## Tech Stack
 
 ### Core Framework
+
 - **React** v19.0.0 - Component-based UI library
 - **React DOM** v19.0.0 - React rendering for web
 - **Vite** v6.0.0 - Fast build tool and development server
 
 ### Routing & State
+
 - **React Router DOM** v6.28.0 - Client-side routing
 - **React Context API** - Global authentication state management
 
 ### Styling
+
 - **Tailwind CSS** v4.0.0 - Utility-first CSS framework
 - **@tailwindcss/vite** v4.0.0 - Vite plugin for Tailwind v4
 
 ### HTTP & API
+
 - **Axios** v1.7.0 - Promise-based HTTP client with interceptors
 
 ### UI Libraries
+
 - **React Toastify** v11.0.0 - Toast notifications
 - **Lucide React** v0.468.0 - Icon library
 - **date-fns** v4.1.0 - Date formatting and manipulation
 
 ### Development Tools
+
 - **ESLint** v9.17.0 - Code linting
 - **eslint-plugin-react** v7.37.0 - React-specific linting rules
 - **eslint-plugin-react-hooks** v5.0.0 - Hooks linting rules
 
 ### Requirements
+
 - **Node.js**: v24.11.1 or higher
 
 ## Project Structure
@@ -80,9 +88,11 @@ frontend/
 ### Component Breakdown
 
 **Public Components:**
+
 - **Login.jsx** - Landing page with email/password form, displays project description
 
 **Protected Components (require authentication):**
+
 - **Header.jsx** - Top navigation with user info, logout, and notification bell icon
 - **CoursesList.jsx** - Grid of enrolled courses with student count
 - **QuestionsList.jsx** - List of questions for a course with sort/filter options
@@ -92,13 +102,16 @@ frontend/
 - **NotificationList.jsx** - Dropdown list of notifications with mark as read functionality
 
 **Utility Components:**
+
 - **ProtectedRoute.jsx** - HOC that checks authentication before rendering protected routes
 - **Spinner.jsx** - Reusable loading spinner with customizable size and text
 
 **Context Providers:**
+
 - **AuthContext.jsx** - Provides global authentication state (user, login, logout, isAuthenticated)
 
 **API Module:**
+
 - **api.js** - Centralized API client with:
   - Axios instance configured with base URL and credentials
   - Response interceptor for 401 error handling
@@ -109,6 +122,7 @@ frontend/
 ### Prerequisites
 
 Before starting, ensure you have the following installed:
+
 - Node.js v24.11.1 or higher
 - npm (comes with Node.js)
 - Backend server running on port 3000
@@ -129,6 +143,7 @@ This will install all dependencies listed in `package.json`, including React, Vi
 Ensure the backend server is running on `http://localhost:3000` before starting the frontend. The frontend uses a Vite proxy to forward API requests to the backend.
 
 **Check backend status:**
+
 ```bash
 # In a separate terminal, navigate to backend directory
 cd ../backend
@@ -147,6 +162,7 @@ npm run dev
 ```
 
 You should see output similar to:
+
 ```
 VITE v6.0.0  ready in 350 ms
 
@@ -158,6 +174,7 @@ VITE v6.0.0  ready in 350 ms
 ### Step 4: Access the Application
 
 Open your browser and navigate to:
+
 ```
 http://localhost:5173
 ```
@@ -165,9 +182,9 @@ http://localhost:5173
 You will see the login page. Use any of the seeded student accounts to log in:
 
 **Demo Account:**
+
 - Email: `aditi.sharma@stevens.edu`
 - Password: `password123`
-
 
 All seeded accounts use the password: `password123`
 
@@ -176,6 +193,7 @@ All seeded accounts use the password: `password123`
 The development server supports hot module replacement (HMR), meaning changes to your code will be reflected immediately in the browser without a full page reload.
 
 **Common Development Commands:**
+
 ```bash
 npm run dev          # Start development server
 npm run build        # Build for production
@@ -192,21 +210,21 @@ Unlike the backend, the frontend does not require a separate `.env` file for loc
 The `vite.config.js` file contains critical settings for the development environment:
 
 ```javascript
-import { defineConfig } from 'vite';
-import react from '@vitejs/plugin-react';
-import tailwindcss from '@tailwindcss/vite';
+import { defineConfig } from "vite";
+import react from "@vitejs/plugin-react";
+import tailwindcss from "@tailwindcss/vite";
 
 export default defineConfig({
   plugins: [
-    react(),           // React plugin for JSX transformation
-    tailwindcss(),     // Tailwind CSS v4 Vite plugin
+    react(), // React plugin for JSX transformation
+    tailwindcss(), // Tailwind CSS v4 Vite plugin
   ],
   server: {
-    port: 5173,        // Frontend runs on port 5173
+    port: 5173, // Frontend runs on port 5173
     proxy: {
-      '/api': {
-        target: 'http://localhost:3000',  // Backend API URL
-        changeOrigin: true,                // Change origin to target URL
+      "/api": {
+        target: "http://localhost:3000", // Backend API URL
+        changeOrigin: true, // Change origin to target URL
       },
     },
   },
@@ -222,6 +240,7 @@ The proxy configuration forwards all requests starting with `/api` to the backen
 - **Proxied To**: `http://localhost:3000/api/auth/login`
 
 **Why use a proxy?**
+
 - Avoids CORS issues during development
 - Simplifies API calls (no need to specify full backend URL)
 - Enables session cookies to work correctly across ports
@@ -255,18 +274,19 @@ The frontend communicates with the backend through a centralized API client buil
 ### Axios Instance Configuration
 
 ```javascript
-import axios from 'axios';
+import axios from "axios";
 
 const api = axios.create({
-  baseURL: '/api',              // All requests start with /api
-  withCredentials: true,        // Send cookies with every request
+  baseURL: "/api", // All requests start with /api
+  withCredentials: true, // Send cookies with every request
   headers: {
-    'Content-Type': 'application/json',
+    "Content-Type": "application/json",
   },
 });
 ```
 
 **Key Configuration:**
+
 - **baseURL**: `/api` - Vite proxy forwards to backend
 - **withCredentials**: `true` - Essential for session-based authentication (sends httpOnly cookies)
 - **headers**: JSON content type for all requests
@@ -281,7 +301,7 @@ api.interceptors.response.use(
   (error) => {
     if (error.response?.status === 401) {
       // Unauthorized - redirect to login
-      window.location.href = '/';
+      window.location.href = "/";
     }
     return Promise.reject(error);
   }
@@ -289,6 +309,7 @@ api.interceptors.response.use(
 ```
 
 **Behavior:**
+
 - If any API call returns 401 (Unauthorized), the user is automatically redirected to the login page
 - This handles session expiration and invalid authentication
 
@@ -297,41 +318,48 @@ api.interceptors.response.use(
 All API calls are organized into domain-specific objects:
 
 **1. Authentication API**
+
 ```javascript
 export const authApi = {
-  login: (email, password) => api.post('/auth/login', { universityEmail: email, password }),
-  logout: () => api.post('/auth/logout'),
-  checkAuth: () => api.get('/auth/check'),
+  login: (email, password) =>
+    api.post("/auth/login", { universityEmail: email, password }),
+  logout: () => api.post("/auth/logout"),
+  checkAuth: () => api.get("/auth/check"),
 };
 ```
 
 **2. Courses API**
+
 ```javascript
 export const coursesApi = {
-  getCourses: () => api.get('/courses'),
+  getCourses: () => api.get("/courses"),
   getCourseById: (courseId) => api.get(`/courses/${courseId}`),
 };
 ```
 
 **3. Questions API**
+
 ```javascript
 export const questionsApi = {
-  getQuestionsByCourse: (courseId, sort = 'newest') =>
+  getQuestionsByCourse: (courseId, sort = "newest") =>
     api.get(`/questions/${courseId}`, { params: { sort } }),
   getQuestionById: (questionId) => api.get(`/questions/detail/${questionId}`),
-  createQuestion: (data) => api.post('/questions', data),
-  updateQuestion: (questionId, data) => api.patch(`/questions/${questionId}`, data),
+  createQuestion: (data) => api.post("/questions", data),
+  updateQuestion: (questionId, data) =>
+    api.patch(`/questions/${questionId}`, data),
   deleteQuestion: (questionId) => api.delete(`/questions/${questionId}`),
 };
 ```
 
 **4. Responses API**
+
 ```javascript
 export const responsesApi = {
-  getResponses: (questionId, sort = 'newest') =>
+  getResponses: (questionId, sort = "newest") =>
     api.get(`/responses/${questionId}`, { params: { sort } }),
-  createResponse: (data) => api.post('/responses', data),
-  updateResponse: (responseId, data) => api.patch(`/responses/${responseId}`, data),
+  createResponse: (data) => api.post("/responses", data),
+  updateResponse: (responseId, data) =>
+    api.patch(`/responses/${responseId}`, data),
   deleteResponse: (responseId) => api.delete(`/responses/${responseId}`),
   markAsHelpful: (responseId, isHelpful) =>
     api.patch(`/responses/${responseId}/helpful`, { isHelpful }),
@@ -339,40 +367,43 @@ export const responsesApi = {
 ```
 
 **5. Notifications API**
+
 ```javascript
 export const notificationsApi = {
   getNotifications: (unreadOnly = true) =>
-    api.get('/notifications', { params: { unreadOnly } }),
-  getNotificationCount: () => api.get('/notifications/count'),
+    api.get("/notifications", { params: { unreadOnly } }),
+  getNotificationCount: () => api.get("/notifications/count"),
   markAsRead: (notificationId) =>
     api.patch(`/notifications/${notificationId}/read`),
-  markAllAsRead: () => api.patch('/notifications/read-all'),
+  markAllAsRead: () => api.patch("/notifications/read-all"),
 };
 ```
 
 ### Using API Calls in Components
 
 **Example: Login Component**
+
 ```javascript
-import { authApi } from '../api/api';
-import { useAuth } from '../context/AuthContext';
+import { authApi } from "../api/api";
+import { useAuth } from "../context/AuthContext";
 
 const handleLogin = async (e) => {
   e.preventDefault();
   try {
     const response = await authApi.login(email, password);
     // Context handles state update
-    toast.success('Login successful!');
-    navigate('/courses');
+    toast.success("Login successful!");
+    navigate("/courses");
   } catch (error) {
-    toast.error(error.response?.data?.error || 'Login failed');
+    toast.error(error.response?.data?.error || "Login failed");
   }
 };
 ```
 
 **Example: Fetching Courses**
+
 ```javascript
-import { coursesApi } from '../api/api';
+import { coursesApi } from "../api/api";
 
 useEffect(() => {
   const fetchCourses = async () => {
@@ -380,7 +411,7 @@ useEffect(() => {
       const response = await coursesApi.getCourses();
       setCourses(response.data);
     } catch (error) {
-      toast.error('Failed to load courses');
+      toast.error("Failed to load courses");
     }
   };
   fetchCourses();
@@ -409,6 +440,7 @@ The application uses session-based authentication with React Context for global 
 ```
 
 **Flow Components:**
+
 1. **Browser** - Stores httpOnly session cookie
 2. **AuthContext** - Manages user state and authentication methods
 3. **Backend** - Validates session and manages user data
@@ -418,15 +450,15 @@ The application uses session-based authentication with React Context for global 
 The `AuthContext.jsx` provides global authentication state to all components:
 
 ```javascript
-import { createContext, useContext, useState, useEffect } from 'react';
-import { authApi } from '../api/api';
+import { createContext, useContext, useState, useEffect } from "react";
+import { authApi } from "../api/api";
 
 const AuthContext = createContext(null);
 
 export const useAuth = () => {
   const context = useContext(AuthContext);
   if (!context) {
-    throw new Error('useAuth must be used within AuthProvider');
+    throw new Error("useAuth must be used within AuthProvider");
   }
   return context;
 };
@@ -447,7 +479,7 @@ export const AuthProvider = ({ children }) => {
         setUser(response.data.student);
       }
     } catch (error) {
-      console.error('Auth check failed:', error);
+      console.error("Auth check failed:", error);
     } finally {
       setLoading(false);
     }
@@ -477,6 +509,7 @@ export const AuthProvider = ({ children }) => {
 ```
 
 **State Properties:**
+
 - `user` - Current authenticated user object (null if not logged in)
 - `loading` - Boolean indicating initial authentication check
 - `login(email, password)` - Function to log in
@@ -486,6 +519,7 @@ export const AuthProvider = ({ children }) => {
 ### Authentication Flow Steps
 
 **1. Application Mount (Initial Load)**
+
 ```
 User opens app
     ↓
@@ -509,6 +543,7 @@ Routes render based on auth state
 ```
 
 **2. Login Flow**
+
 ```
 User submits login form (Login.jsx)
     ↓
@@ -528,6 +563,7 @@ Navigate to /courses
 ```
 
 **3. Protected Route Access**
+
 ```
 User navigates to protected route
     ↓
@@ -539,6 +575,7 @@ If false: redirect to login (/)
 ```
 
 **4. Logout Flow**
+
 ```
 User clicks logout (Header.jsx)
     ↓
@@ -554,6 +591,7 @@ Navigate to login (/)
 ```
 
 **5. Session Expiration**
+
 ```
 User makes API request
     ↓
@@ -571,8 +609,8 @@ Redirects to login (/)
 The `ProtectedRoute.jsx` component wraps authenticated routes:
 
 ```javascript
-import { Navigate } from 'react-router-dom';
-import { useAuth } from '../context/AuthContext';
+import { Navigate } from "react-router-dom";
+import { useAuth } from "../context/AuthContext";
 
 const ProtectedRoute = ({ children }) => {
   const { isAuthenticated, loading } = useAuth();
@@ -592,6 +630,7 @@ export default ProtectedRoute;
 ```
 
 **Usage in App.jsx:**
+
 ```javascript
 <Route
   path="/courses"
@@ -606,12 +645,14 @@ export default ProtectedRoute;
 ### Session Management
 
 **Session Cookie Properties (set by backend):**
+
 - **httpOnly**: true - Prevents JavaScript access (XSS protection)
 - **sameSite**: 'lax' - CSRF protection
 - **maxAge**: 48 hours - Session expiration time
 - **secure**: true in production - HTTPS only
 
 **Frontend Responsibilities:**
+
 - Include `withCredentials: true` in all Axios requests
 - Handle 401 errors by redirecting to login
 - Check authentication on app mount
@@ -626,42 +667,41 @@ The frontend uses Tailwind CSS v4 with a utility-first approach, custom CSS vari
 Tailwind CSS v4 is integrated using the `@tailwindcss/vite` plugin, which provides a modern CSS-first configuration:
 
 **vite.config.js:**
+
 ```javascript
-import tailwindcss from '@tailwindcss/vite';
+import tailwindcss from "@tailwindcss/vite";
 
 export default defineConfig({
   plugins: [
     react(),
-    tailwindcss(),  // Tailwind v4 Vite plugin
+    tailwindcss(), // Tailwind v4 Vite plugin
   ],
 });
 ```
 
 **tailwind.config.js:**
+
 ```javascript
 export default {
-  content: [
-    "./index.html",
-    "./src/**/*.{js,ts,jsx,tsx}",
-  ],
+  content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
   theme: {
     extend: {
       colors: {
         primary: {
-          50: '#f0f9ff',
-          100: '#e0f2fe',
-          500: '#0ea5e9',
-          600: '#0284c7',
-          700: '#0369a1',
+          50: "#f0f9ff",
+          100: "#e0f2fe",
+          500: "#0ea5e9",
+          600: "#0284c7",
+          700: "#0369a1",
         },
-        success: '#22c55e',
-        error: '#ef4444',
-        warning: '#f59e0b',
+        success: "#22c55e",
+        error: "#ef4444",
+        warning: "#f59e0b",
       },
     },
   },
   plugins: [],
-}
+};
 ```
 
 ### Custom CSS Variables
@@ -756,8 +796,12 @@ Custom animations enhance user experience:
 
 ```css
 @keyframes fadeIn {
-  from { opacity: 0; }
-  to { opacity: 1; }
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }
 
 @keyframes slideDown {
@@ -785,19 +829,22 @@ Custom animations enhance user experience:
 Mobile-first responsive breakpoints:
 
 ```jsx
-<div className="
+<div
+  className="
   grid
   grid-cols-1          {/* Mobile: 1 column */}
   sm:grid-cols-2       {/* Tablet (640px+): 2 columns */}
   lg:grid-cols-3       {/* Desktop (1024px+): 3 columns */}
   gap-4
   p-4
-">
+"
+>
   {/* Course cards */}
 </div>
 ```
 
 **Breakpoints:**
+
 - **Default (0-639px)**: Mobile devices
 - **sm (640px+)**: Small tablets
 - **md (768px+)**: Tablets
@@ -816,7 +863,9 @@ Focus visible outlines for keyboard navigation:
 }
 
 /* Better focus rings for form elements */
-input:focus, textarea:focus, select:focus {
+input:focus,
+textarea:focus,
+select:focus {
   outline: none;
   border-color: var(--color-primary);
   box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
@@ -878,7 +927,7 @@ Skip to main content link:
 The application uses Lucide React for consistent icon design:
 
 ```jsx
-import { Bell, LogOut, Search, Send } from 'lucide-react';
+import { Bell, LogOut, Search, Send } from "lucide-react";
 
 <button className="relative p-2 hover:bg-gray-100 rounded-full">
   <Bell className="w-6 h-6 text-gray-600" />
@@ -887,7 +936,7 @@ import { Bell, LogOut, Search, Send } from 'lucide-react';
       {unreadCount}
     </span>
   )}
-</button>
+</button>;
 ```
 
 ## Troubleshooting
@@ -897,6 +946,7 @@ import { Bell, LogOut, Search, Send } from 'lucide-react';
 #### 1. API Proxy Not Working (CORS Errors)
 
 **Symptoms:**
+
 - Console shows CORS errors: `Access-Control-Allow-Origin`
 - API requests fail with network errors
 - Cannot log in or fetch data
@@ -904,6 +954,7 @@ import { Bell, LogOut, Search, Send } from 'lucide-react';
 **Solutions:**
 
 a. Verify backend is running:
+
 ```bash
 # Check if backend is listening on port 3000
 curl http://localhost:3000/api/auth/check
@@ -911,6 +962,7 @@ curl http://localhost:3000/api/auth/check
 ```
 
 b. Check Vite proxy configuration in `vite.config.js`:
+
 ```javascript
 server: {
   proxy: {
@@ -923,6 +975,7 @@ server: {
 ```
 
 c. Restart both frontend and backend servers:
+
 ```bash
 # Terminal 1: Backend
 cd backend
@@ -934,17 +987,21 @@ npm run dev
 ```
 
 d. Verify backend CORS configuration allows `http://localhost:5173`:
+
 ```javascript
 // backend/app.js
-app.use(cors({
-  origin: 'http://localhost:5173',
-  credentials: true,
-}));
+app.use(
+  cors({
+    origin: "http://localhost:5173",
+    credentials: true,
+  })
+);
 ```
 
 #### 2. Login Not Persisting / Session Issues
 
 **Symptoms:**
+
 - Successfully log in but immediately logged out
 - Refresh page and lose authentication
 - Session cookie not being sent
@@ -952,20 +1009,23 @@ app.use(cors({
 **Solutions:**
 
 a. Ensure `withCredentials: true` in Axios instance:
+
 ```javascript
 // src/api/api.js
 const api = axios.create({
-  baseURL: '/api',
-  withCredentials: true,  // Must be true
+  baseURL: "/api",
+  withCredentials: true, // Must be true
 });
 ```
 
 b. Check browser cookie settings:
+
 - Open DevTools > Application > Cookies
 - Look for `connect.sid` cookie from `localhost:5173`
 - Ensure cookies are not blocked by browser settings
 
 c. Clear browser cookies and cache:
+
 ```
 Chrome: DevTools > Application > Clear storage > Clear site data
 Firefox: DevTools > Storage > Clear All
@@ -973,23 +1033,27 @@ Safari: Develop > Empty Caches
 ```
 
 d. Verify backend session configuration:
+
 ```javascript
 // backend/app.js
-app.use(session({
-  secret: process.env.SESSION_SECRET,
-  resave: false,
-  saveUninitialized: false,
-  cookie: {
-    httpOnly: true,
-    sameSite: 'lax',
-    maxAge: 1000 * 60 * 60 * 48,
-  },
-}));
+app.use(
+  session({
+    secret: process.env.SESSION_SECRET,
+    resave: false,
+    saveUninitialized: false,
+    cookie: {
+      httpOnly: true,
+      sameSite: "lax",
+      maxAge: 1000 * 60 * 60 * 48,
+    },
+  })
+);
 ```
 
 #### 3. Styling Not Applying
 
 **Symptoms:**
+
 - Page looks unstyled or broken
 - Tailwind classes not working
 - Custom styles not visible
@@ -997,11 +1061,13 @@ app.use(session({
 **Solutions:**
 
 a. Verify Tailwind directives in `src/index.css`:
+
 ```css
 @import "tailwindcss";
 ```
 
 b. Check `tailwind.config.js` content paths:
+
 ```javascript
 content: [
   "./index.html",
@@ -1010,6 +1076,7 @@ content: [
 ```
 
 c. Restart Vite development server:
+
 ```bash
 # Stop the server (Ctrl+C)
 # Clear Vite cache
@@ -1020,11 +1087,13 @@ npm run dev
 ```
 
 d. Check for CSS import in `main.jsx`:
+
 ```javascript
-import './index.css';  // Must be imported
+import "./index.css"; // Must be imported
 ```
 
 e. Clear browser cache and hard reload:
+
 ```
 Chrome: Cmd+Shift+R (Mac) or Ctrl+Shift+R (Windows/Linux)
 ```
@@ -1032,6 +1101,7 @@ Chrome: Cmd+Shift+R (Mac) or Ctrl+Shift+R (Windows/Linux)
 #### 4. White Screen / Blank Page
 
 **Symptoms:**
+
 - Application shows blank white screen
 - No errors in console
 - React components not rendering
@@ -1039,40 +1109,45 @@ Chrome: Cmd+Shift+R (Mac) or Ctrl+Shift+R (Windows/Linux)
 **Solutions:**
 
 a. Check browser console for JavaScript errors:
+
 ```
 Open DevTools > Console tab
 Look for red error messages
 ```
 
 b. Verify React Router setup in `App.jsx`:
+
 ```javascript
-import { BrowserRouter } from 'react-router-dom';
+import { BrowserRouter } from "react-router-dom";
 
 const App = () => (
-  <BrowserRouter>  {/* Must wrap entire app */}
+  <BrowserRouter>
+    {" "}
+    {/* Must wrap entire app */}
     <AuthProvider>
-      <Routes>
-        {/* routes */}
-      </Routes>
+      <Routes>{/* routes */}</Routes>
     </AuthProvider>
   </BrowserRouter>
 );
 ```
 
 c. Ensure `main.jsx` renders to correct element:
-```javascript
-import ReactDOM from 'react-dom/client';
-import App from './App';
 
-ReactDOM.createRoot(document.getElementById('root')).render(<App />);
+```javascript
+import ReactDOM from "react-dom/client";
+import App from "./App";
+
+ReactDOM.createRoot(document.getElementById("root")).render(<App />);
 ```
 
 d. Check `index.html` has root element:
+
 ```html
 <div id="root"></div>
 ```
 
 e. Reinstall dependencies:
+
 ```bash
 rm -rf node_modules package-lock.json
 npm install
@@ -1082,6 +1157,7 @@ npm run dev
 #### 5. React Router Navigation Not Working
 
 **Symptoms:**
+
 - Clicking links doesn't navigate
 - URL changes but page doesn't update
 - Routes render wrong components
@@ -1089,38 +1165,45 @@ npm run dev
 **Solutions:**
 
 a. Use `useNavigate` hook instead of `<a>` tags:
+
 ```javascript
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from "react-router-dom";
 
 const MyComponent = () => {
   const navigate = useNavigate();
 
-  return (
-    <button onClick={() => navigate('/courses')}>
-      Go to Courses
-    </button>
-  );
+  return <button onClick={() => navigate("/courses")}>Go to Courses</button>;
 };
 ```
 
 b. Verify routes are defined in `App.jsx`:
+
 ```javascript
 <Routes>
   <Route path="/" element={<Login />} />
-  <Route path="/courses" element={<ProtectedRoute><CoursesList /></ProtectedRoute>} />
+  <Route
+    path="/courses"
+    element={
+      <ProtectedRoute>
+        <CoursesList />
+      </ProtectedRoute>
+    }
+  />
   {/* ... more routes */}
 </Routes>
 ```
 
 c. Check for typos in route paths:
+
 ```javascript
 // Make sure paths match exactly
-navigate('/courses');  // Not '/course' or '/Courses'
+navigate("/courses"); // Not '/course' or '/Courses'
 ```
 
 #### 6. Build Errors
 
 **Symptoms:**
+
 - `npm run build` fails
 - Production build doesn't work
 - Module not found errors
@@ -1128,24 +1211,28 @@ navigate('/courses');  // Not '/course' or '/Courses'
 **Solutions:**
 
 a. Check Node.js version:
+
 ```bash
 node --version
 # Should be v24.11.1 or higher
 ```
 
 b. Verify all imports are correct:
+
 ```javascript
 // Use .jsx extension for JSX files
-import Login from './components/Login.jsx';  // Not just './components/Login'
+import Login from "./components/Login.jsx"; // Not just './components/Login'
 ```
 
 c. Check for unused imports:
+
 ```bash
 npm run lint
 # Fix any ESLint errors
 ```
 
 d. Clear Vite cache and rebuild:
+
 ```bash
 rm -rf .vite dist
 npm run build
@@ -1154,6 +1241,7 @@ npm run build
 #### 7. Notifications Not Updating
 
 **Symptoms:**
+
 - Notification count doesn't update
 - New notifications don't appear
 - Badge shows wrong count
@@ -1161,24 +1249,27 @@ npm run build
 **Solutions:**
 
 a. Ensure notifications are fetched after relevant actions:
+
 ```javascript
 // After posting a response
 await responsesApi.createResponse(data);
-fetchNotifications();  // Refresh notifications
+fetchNotifications(); // Refresh notifications
 ```
 
 b. Check notification polling in Header.jsx:
+
 ```javascript
 useEffect(() => {
   const interval = setInterval(() => {
     fetchNotificationCount();
-  }, 30000);  // Poll every 30 seconds
+  }, 30000); // Poll every 30 seconds
 
   return () => clearInterval(interval);
 }, []);
 ```
 
 c. Verify backend creates notifications correctly:
+
 ```bash
 # Check notifications in database
 mongosh
@@ -1189,6 +1280,7 @@ db.notifications.find({ recipientId: ObjectId("...") })
 #### 8. Images or Icons Not Loading
 
 **Symptoms:**
+
 - Lucide icons not appearing
 - Static assets not loading
 - 404 errors for images
@@ -1196,13 +1288,15 @@ db.notifications.find({ recipientId: ObjectId("...") })
 **Solutions:**
 
 a. Verify Lucide React import:
-```javascript
-import { Bell, LogOut } from 'lucide-react';  // Named imports
 
-<Bell className="w-6 h-6" />  // Use as component
+```javascript
+import { Bell, LogOut } from "lucide-react"; // Named imports
+
+<Bell className="w-6 h-6" />; // Use as component
 ```
 
 b. Check static assets are in `public/` folder:
+
 ```
 frontend/
 ├── public/
@@ -1211,6 +1305,7 @@ frontend/
 ```
 
 c. Reference public assets with `/` prefix:
+
 ```jsx
 <img src="/logo.png" alt="Logo" />
 ```
@@ -1218,6 +1313,7 @@ c. Reference public assets with `/` prefix:
 #### 9. Date Formatting Issues
 
 **Symptoms:**
+
 - Dates show as timestamps
 - Timezone issues
 - Date format inconsistent
@@ -1225,17 +1321,19 @@ c. Reference public assets with `/` prefix:
 **Solutions:**
 
 a. Use date-fns for consistent formatting:
+
 ```javascript
-import { formatDistanceToNow, format } from 'date-fns';
+import { formatDistanceToNow, format } from "date-fns";
 
 // Relative time: "2 hours ago"
 formatDistanceToNow(new Date(question.createdAt), { addSuffix: true });
 
 // Formatted date: "Jan 5, 2025, 3:45 PM"
-format(new Date(question.createdAt), 'MMM d, yyyy, h:mm a');
+format(new Date(question.createdAt), "MMM d, yyyy, h:mm a");
 ```
 
 b. Ensure dates are valid before formatting:
+
 ```javascript
 const date = question.createdAt ? new Date(question.createdAt) : new Date();
 ```
@@ -1243,6 +1341,7 @@ const date = question.createdAt ? new Date(question.createdAt) : new Date();
 #### 10. Form Submission Issues
 
 **Symptoms:**
+
 - Forms don't submit
 - Input values not being sent
 - Form validation errors
@@ -1250,27 +1349,30 @@ const date = question.createdAt ? new Date(question.createdAt) : new Date();
 **Solutions:**
 
 a. Prevent default form submission:
+
 ```javascript
 const handleSubmit = async (e) => {
-  e.preventDefault();  // Must prevent default
+  e.preventDefault(); // Must prevent default
   // ... submit logic
 };
 ```
 
 b. Ensure form state is updated:
+
 ```javascript
-const [formData, setFormData] = useState({ title: '', content: '' });
+const [formData, setFormData] = useState({ title: "", content: "" });
 
 <input
   value={formData.title}
   onChange={(e) => setFormData({ ...formData, title: e.target.value })}
-/>
+/>;
 ```
 
 c. Check for empty required fields:
+
 ```javascript
 if (!formData.title || !formData.content) {
-  toast.error('Please fill in all required fields');
+  toast.error("Please fill in all required fields");
   return;
 }
 ```
@@ -1316,6 +1418,7 @@ npm run build
 ```
 
 This creates optimized static files in the `dist/` folder:
+
 - Minified JavaScript
 - Optimized CSS
 - Code splitting
@@ -1332,16 +1435,19 @@ Serves the production build on `http://localhost:4173` for testing.
 ### Deployment Options
 
 **1. Static Hosting (Vercel, Netlify, GitHub Pages)**
+
 - Deploy `dist/` folder as static site
 - Configure environment variables for production API URL
 - Set up custom domain and SSL
 
 **2. Docker Deployment**
+
 - Create Dockerfile with multi-stage build
 - Serve with Nginx or serve npm package
 - Configure API proxy in production
 
 **3. Backend Integration**
+
 - Serve frontend from Express backend
 - Build frontend and move `dist/` to backend `public/` folder
 - Single deployment for both frontend and backend
