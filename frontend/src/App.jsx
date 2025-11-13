@@ -3,7 +3,7 @@
  * Routing and layout
  */
 
-import { BrowserRouter, Routes, Route, Navigate,useLocation  } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Navigate, useLocation } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { AuthProvider, useAuth } from "./context/AuthContext";
@@ -12,10 +12,13 @@ import CoursesList from "./components/CoursesList";
 import QuestionsList from "./components/QuestionsList";
 import QuestionDetail from "./components/QuestionDetail";
 import QuestionForm from "./components/QuestionForm";
+
 //import ProtectedRoute from "./components/ProtectedRoute";
 
 import ProtectedRoute from "./components/ProtectedRoute";
 import HelpWidget from "./components/HelpWidget";
+import ScrollToTopButton from "./components/ScrollToTopButton";
+
 import Spinner from "./components/Spinner";
 
 const AppRoutes = () => {
@@ -31,61 +34,67 @@ const AppRoutes = () => {
     );
   }
 
-  const hideHelpWidget = location.pathname === "/";
+  const hideWidgets = location.pathname === "/";
+
 
   return (
     <>
-    <Routes>
-      {/* Public Route */}
-      <Route path="/" element={<Login />} />
+      <Routes>
+        {/* Public Route */}
+        <Route path="/" element={<Login />} />
 
-      {/* Protected Routes */}
-      <Route
-        path="/courses"
-        element={
-          <ProtectedRoute>
-            <CoursesList />
-          </ProtectedRoute>
-        }
-      />
-      <Route
-        path="/courses/:courseId/questions"
-        element={
-          <ProtectedRoute>
-            <QuestionsList />
-          </ProtectedRoute>
-        }
-      />
-      <Route
-        path="/courses/:courseId/questions/new"
-        element={
-          <ProtectedRoute>
-            <QuestionForm />
-          </ProtectedRoute>
-        }
-      />
-      <Route
-        path="/questions/:questionId"
-        element={
-          <ProtectedRoute>
-            <QuestionDetail />
-          </ProtectedRoute>
-        }
-      />
-      <Route
-        path="/questions/:questionId/edit"
-        element={
-          <ProtectedRoute>
-            <QuestionForm isEdit />
-          </ProtectedRoute>
-        }
-      />
+        {/* Protected Routes */}
+        <Route
+          path="/courses"
+          element={
+            <ProtectedRoute>
+              <CoursesList />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/courses/:courseId/questions"
+          element={
+            <ProtectedRoute>
+              <QuestionsList />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/courses/:courseId/questions/new"
+          element={
+            <ProtectedRoute>
+              <QuestionForm />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/questions/:questionId"
+          element={
+            <ProtectedRoute>
+              <QuestionDetail />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/questions/:questionId/edit"
+          element={
+            <ProtectedRoute>
+              <QuestionForm isEdit />
+            </ProtectedRoute>
+          }
+        />
 
-      {/* Catch-all redirect */}
-      <Route path="*" element={<Navigate to="/" replace />} />
-    </Routes>
-     {/* Global help widget, hidden on login */}
-      {!hideHelpWidget && <HelpWidget />}
+        {/* Catch-all redirect */}
+        <Route path="*" element={<Navigate to="/" replace />} />
+      </Routes>
+      {/* Global help widget, hidden on login */}
+      {!hideWidgets && (
+        <><div className="fixed bottom-6 right-6 flex flex-col gap-4">
+          <HelpWidget />
+          <ScrollToTopButton /></div>
+        </>
+      )}
     </>
   );
 };
