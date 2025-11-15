@@ -3,6 +3,7 @@
  * Creates course-relevant questions per course
  * CS545: 25 questions, CS590: 30 questions, SSW590: 20 questions
  * CS546: 20 questions, CS555: 15 questions
+ * Total: 110 questions
  */
 
 import { getCollection, COLLECTIONS } from '../database_config/index.js';
@@ -188,12 +189,6 @@ const questionTemplates = {
       isAnonymous: false,
     },
     {
-      title: 'Big Omega notation - when is it useful?',
-      content:
-        'Big Omega gives lower bound, but I rarely see it used. When would I need to know the best-case complexity with Big Omega?',
-      isAnonymous: true,
-    },
-    {
       title: 'Tight bounds vs loose bounds in Big O',
       content:
         'If an algorithm is O(n log n), is it also O(n²)? Why do we prefer tight bounds?',
@@ -349,14 +344,6 @@ const questionTemplates = {
       title: 'Collision resolution - chaining vs open addressing',
       content:
         'What are the pros and cons of chaining vs open addressing for collision resolution? Which is better in practice?',
-      isAnonymous: false,
-    },
-
-    // Priority Queues
-    {
-      title: 'Priority queue implementation - heap vs BST',
-      content:
-        'Can I implement a priority queue with a BST instead of a heap? What would be the complexity tradeoffs?',
       isAnonymous: false,
     },
 
@@ -673,14 +660,6 @@ const questionTemplates = {
       title: 'Session-based auth vs JWT',
       content:
         'What are the differences between session-based authentication and JWT? Which is more secure?',
-      isAnonymous: false,
-    },
-
-    // Handlebars
-    {
-      title: 'Handlebars helpers - when to use them',
-      content:
-        'When should I create custom Handlebars helpers? What kinds of logic belong in helpers vs in my routes?',
       isAnonymous: false,
     },
   ],
