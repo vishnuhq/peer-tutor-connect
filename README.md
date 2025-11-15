@@ -162,7 +162,7 @@ CS545-Peer-Tutor-Connect/
         ├── main.jsx           # React entry point
         ├── App.jsx            # Main app component with routing
         ├── index.css          # Global styles + Tailwind directives
-        ├── components/        # React components (10 total)
+        ├── components/        # React components (12 total)
         ├── context/           # React context providers
         │   └── AuthContext.jsx     # Global auth state
         └── api/               # API integration layer
