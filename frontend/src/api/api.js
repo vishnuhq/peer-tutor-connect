@@ -3,14 +3,14 @@
  * Axios instance and all API calls
  */
 
-import axios from "axios";
+import axios from 'axios';
 
 // Create axios instance with base configuration
 const api = axios.create({
-  baseURL: "/api",
+  baseURL: '/api',
   withCredentials: true, // Important for sessions
   headers: {
-    "Content-Type": "application/json",
+    'Content-Type': 'application/json',
   },
 });
 
@@ -21,7 +21,7 @@ api.interceptors.response.use(
     // Handle common errors
     if (error.response?.status === 401) {
       // Unauthorized - redirect to login
-      window.location.href = "/";
+      window.location.href = '/';
     }
     return Promise.reject(error);
   }
@@ -30,28 +30,28 @@ api.interceptors.response.use(
 // Auth API calls
 export const authApi = {
   login: (email, password) =>
-    api.post("/auth/login", { universityEmail: email, password }),
+    api.post('/auth/login', { universityEmail: email, password }),
 
-  logout: () => api.post("/auth/logout"),
+  logout: () => api.post('/auth/logout'),
 
-  checkAuth: () => api.get("/auth/check"),
+  checkAuth: () => api.get('/auth/check'),
 };
 
 // Courses API calls
 export const coursesApi = {
-  getCourses: () => api.get("/courses"),
+  getCourses: () => api.get('/courses'),
 
   getCourseById: (courseId) => api.get(`/courses/${courseId}`),
 };
 
 // Questions API calls
 export const questionsApi = {
-  getQuestionsByCourse: (courseId, sort = "newest") =>
+  getQuestionsByCourse: (courseId, sort = 'newest') =>
     api.get(`/questions/${courseId}`, { params: { sort } }),
 
   getQuestionById: (questionId) => api.get(`/questions/detail/${questionId}`),
 
-  createQuestion: (data) => api.post("/questions", data),
+  createQuestion: (data) => api.post('/questions', data),
 
   updateQuestion: (questionId, data) =>
     api.patch(`/questions/${questionId}`, data),
@@ -61,10 +61,10 @@ export const questionsApi = {
 
 // Responses API calls
 export const responsesApi = {
-  getResponses: (questionId, sort = "newest") =>
+  getResponses: (questionId, sort = 'newest') =>
     api.get(`/responses/${questionId}`, { params: { sort } }),
 
-  createResponse: (data) => api.post("/responses", data),
+  createResponse: (data) => api.post('/responses', data),
 
   updateResponse: (responseId, data) =>
     api.patch(`/responses/${responseId}`, data),
@@ -78,14 +78,14 @@ export const responsesApi = {
 // Notifications API calls
 export const notificationsApi = {
   getNotifications: (unreadOnly = true) =>
-    api.get("/notifications", { params: { unreadOnly } }),
+    api.get('/notifications', { params: { unreadOnly } }),
 
-  getNotificationCount: () => api.get("/notifications/count"),
+  getNotificationCount: () => api.get('/notifications/count'),
 
   markAsRead: (notificationId) =>
     api.patch(`/notifications/${notificationId}/read`),
 
-  markAllAsRead: () => api.patch("/notifications/read-all"),
+  markAllAsRead: () => api.patch('/notifications/read-all'),
 };
 
 export default api;
