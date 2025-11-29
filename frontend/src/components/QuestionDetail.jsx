@@ -608,9 +608,17 @@ const QuestionDetail = () => {
 
           {/* Responses List */}
           {responses.length === 0 ? (
-            <div className="text-center" style={{ padding: '3rem 1rem' }}>
+            <div
+              style={{
+                padding: '3rem 1rem',
+                display: 'flex',
+                flexDirection: 'column',
+                alignItems: 'center',
+                textAlign: 'center',
+              }}
+            >
               <MessageSquare
-                className="text-gray-400 mx-auto"
+                className="text-gray-400"
                 style={{ width: '4rem', height: '4rem', marginBottom: '1rem' }}
               />
               <p

@@ -150,7 +150,7 @@ const QuestionsList = () => {
         >
           <div>
             <h1
-              className="font-bold text-gray-900 text-2xl sm:text-4xl"
+              className="font-bold text-gray-900 text-xl sm:text-3xl"
               style={{ lineHeight: '1.2' }}
             >
               {course
@@ -333,10 +333,14 @@ const QuestionsList = () => {
                 padding: '3rem',
                 borderRadius: '1rem',
                 maxWidth: '28rem',
+                display: 'flex',
+                flexDirection: 'column',
+                alignItems: 'center',
+                textAlign: 'center',
               }}
             >
               <MessageCircle
-                className="text-gray-400 mx-auto"
+                className="text-gray-400"
                 style={{ width: '5rem', height: '5rem', marginBottom: '1rem' }}
               />
               <h3

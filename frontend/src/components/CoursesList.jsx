@@ -68,10 +68,17 @@ const CoursesList = () => {
           <div className="empty-state">
             <div
               className="bg-white shadow-lg"
-              style={{ padding: '3rem', borderRadius: '1rem' }}
+              style={{
+                padding: '3rem',
+                borderRadius: '1rem',
+                display: 'flex',
+                flexDirection: 'column',
+                alignItems: 'center',
+                textAlign: 'center',
+              }}
             >
               <BookOpen
-                className="text-gray-400 mx-auto"
+                className="text-gray-400"
                 style={{ width: '5rem', height: '5rem', marginBottom: '1rem' }}
               />
               <h3

@@ -5,7 +5,7 @@
 
 import { useState } from 'react';
 import { responsesApi } from '../api/api';
-import { Send, X } from 'lucide-react';
+import { Send, X, Lightbulb } from 'lucide-react';
 
 const ResponseForm = ({
   questionId,
@@ -114,7 +114,7 @@ const ResponseForm = ({
             onChange={(e) => setContent(e.target.value)}
             onKeyDown={handleKeyDown}
             placeholder="Share your knowledge to help answer this question. Include explanations, examples, or step-by-step guidance..."
-            rows={7}
+            rows={4}
             className={`w-full border focus:ring-2 focus:ring-teal-500 focus:border-transparent transition-all resize-y bg-white ${
               error ? 'border-red-500' : 'border-gray-200 hover:border-gray-300'
             }`}
@@ -137,21 +137,30 @@ const ResponseForm = ({
             </p>
           )}
           <p
-            className="text-gray-600 font-medium"
-            style={{ marginTop: '0.5rem', fontSize: '0.75rem' }}
+            className="text-gray-600 font-medium flex items-center flex-wrap"
+            style={{ marginTop: '0.5rem', fontSize: '0.75rem', gap: '0.25rem' }}
           >
-            💡 Tip: Press{' '}
-            <kbd
-              className="bg-white border border-gray-300"
+            <Lightbulb
               style={{
-                padding: '0.125rem 0.5rem',
-                borderRadius: '0.25rem',
-                fontSize: '0.75rem',
+                width: '0.875rem',
+                height: '0.875rem',
+                flexShrink: 0,
               }}
-            >
-              Ctrl+Enter
-            </kbd>{' '}
-            to submit quickly
+            />
+            <span>
+              Tip: Press{' '}
+              <kbd
+                className="bg-white border border-gray-300"
+                style={{
+                  padding: '0.125rem 0.5rem',
+                  borderRadius: '0.25rem',
+                  fontSize: '0.75rem',
+                }}
+              >
+                Ctrl+Enter
+              </kbd>{' '}
+              to submit quickly
+            </span>
           </p>
         </div>
 

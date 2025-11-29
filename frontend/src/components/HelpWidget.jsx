@@ -376,7 +376,7 @@ const HelpWidget = () => {
         aria-label="Open help guide"
         className="fixed right-6 bottom-6 w-12 h-12 rounded-full bg-gradient-to-r from-teal-600 to-emerald-600 hover:from-teal-700 hover:to-emerald-700 text-white flex items-center justify-center cursor-pointer shadow-xl transition-all z-40"
       >
-        <HelpCircle size={20} />
+        <HelpCircle size={24} />
       </button>
     </>
   );
