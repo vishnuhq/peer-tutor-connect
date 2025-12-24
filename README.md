@@ -1,6 +1,6 @@
 # Peer-Tutor Connect
 
-A web-based peer tutoring platform that connects students for instant academic help within their enrolled courses. Built as part of the CS545 Human-Computer Interaction course project.
+A web-based peer tutoring platform that connects students for instant academic help within their enrolled courses. Built as part of the CS 545 Human-Computer Interaction course project.
 
 ## Table of Contents
 
@@ -30,8 +30,8 @@ Our primary focus is improving the efficiency of getting academic help. Our goal
 
 | Metric                 | Description                                                                   | Target                  |
 | ---------------------- | ----------------------------------------------------------------------------- | ----------------------- |
-| Task completion time   | Average time from posting a question to receiving a satisfactory answer       | 30 minutes or less      |
-| First response time    | How quickly questions receive their first response                            | 10 minutes or less      |
+| Time to resolution     | Average time from posting a question to receiving a satisfactory answer       | 30 minutes or less      |
+| Time to first response | How quickly questions receive their first response                            | 10 minutes or less      |
 | Interaction efficiency | Number of back-and-forth exchanges needed to fully resolve a learning blocker | 3 or fewer interactions |
 
 **Qualitative Metrics**
@@ -91,7 +91,7 @@ After seeding, log in with any of the 100 student accounts. All use the same pas
 
 ## Academic Context
 
-**Course:** CS 545, Human-Computer Interaction
+**Course:** CS 545 Human-Computer Interaction
 
 **Instructor:** Dr. Gregg Vesonder
 
@@ -135,18 +135,18 @@ The application meets WCAG 2.2 AAA guidelines, the strictest accessibility stand
 
 #### Heuristic Evaluation
 
-| Nielsen Heuristic                   | What We Did                                                                          |  ✓  |
-| ----------------------------------- | ------------------------------------------------------------------------------------ | :-: |
-| Visibility of System Status         | Toast notifications, loading spinners, breathing notification badge                  |  ✓  |
-| Match Between System and Real World | Forum layout mirrors familiar platforms, natural language, recognizable course codes |  ✓  |
-| User Control and Freedom            | Edit/delete content, toggle anonymous, cancel actions, breadcrumbs                   |  ✓  |
-| Consistency and Standards           | Uniform buttons, cards, colors, wording; responsive design                           |  ✓  |
-| Error Prevention                    | Form validation, real-time character counts, delete confirmation                     |  ✓  |
-| Recognition Rather Than Recall      | Breadcrumbs, dashboard course cards, help widget, visual cues                        |  ✓  |
-| Flexibility and Efficiency of Use   | Ctrl+Enter shortcuts, multiple paths, sort/filter, new question badges               |  ✓  |
-| Aesthetic and Minimalist Design     | Only relevant info per page, proper spacing, clear hierarchy                         |  ✓  |
-| Help Users Recognize Errors         | Specific error messages, real-time counters, editable content                        |  ✓  |
-| Help and Documentation              | Floating help widget always accessible                                               |  ✓  |
+| Nielsen Heuristic                   | What We Did                                                                          |
+| ----------------------------------- | ------------------------------------------------------------------------------------ |
+| Visibility of System Status         | Toast notifications, loading spinners, breathing notification badge                  |
+| Match Between System and Real World | Forum layout mirrors familiar platforms, natural language, recognizable course codes |
+| User Control and Freedom            | Edit/delete content, toggle anonymous, cancel actions, breadcrumbs                   |
+| Consistency and Standards           | Uniform buttons, cards, colors, wording; responsive design                           |
+| Error Prevention                    | Form validation, real-time character counts, delete confirmation                     |
+| Recognition Rather Than Recall      | Breadcrumbs, dashboard course cards, help widget, visual cues                        |
+| Flexibility and Efficiency of Use   | Ctrl+Enter shortcuts, multiple paths, sort/filter, new question badges               |
+| Aesthetic and Minimalist Design     | Only relevant info per page, proper spacing, clear hierarchy                         |
+| Help Users Recognize Errors         | Specific error messages, real-time counters, editable content                        |
+| Help and Documentation              | Floating help widget always accessible                                               |
 
 #### Laws of Simplicity
 
